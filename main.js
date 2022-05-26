@@ -19,7 +19,41 @@ console.log("model is loaded");
 function speak(){
     var synth = window.speechSynthesis;
     speak_data1 = "The first prediction is: " + prediction_1;
-    speak_data2 = "The second prediction is: " + prediction_2;
-    var utterthis = new SpeechSynthesisUtterance(speak_data1 + speak_data2);
+ 
+    var utterthis = new SpeechSynthesisUtterance(speak_data1);
     synth.speak(utterthis);
+}
+function check(){
+    img = document.getElementById("captured_image");
+    classifier.classify(img, gotResult);
+}
+function gotResult(error, results){
+if (error){
+    console.log(error);
+
+}
+else{
+    console.log(results);
+    document.getElementById("result_emotion_name").innerHTML = results[0].label;
+  
+    prediction_1 = results[0].label;
+  
+    speak();
+    if(results[0].label == "Amazing Sign"){
+        document.getElementById("update_emoji").innerHTML = " &#9996;";
+    }
+    if(results[0].label == "Peace Sign"){
+        document.getElementById("update_emoji").innerHTML = "&#128076;";
+    }
+    if(results[0].label == "Thumbs Up"){
+        document.getElementById("update_emoji").innerHTML = "&#128077;";
+    }
+    if(results[0].label == "Gang Sign"){
+        document.getElementById("update_emoji").innerHTML = "&#128406;";
+    }
+    if(results[0].label == "Vulcan Salute"){
+        document.getElementById("update_emoji").innerHTML = "&#129304;";
+    }
+    
+}
 }
